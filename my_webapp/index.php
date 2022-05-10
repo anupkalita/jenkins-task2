@@ -17,7 +17,7 @@
                 // Performing insert query execution
                 $sql = "INSERT INTO person(name,age)  VALUES ('$name', '$age')";
                 if(mysqli_query($conn, $sql)){
-                    echo "<h3>data stored in a database successfully.";
+                    echo "<h3>data stored successfully.";
                 } else{
                     echo "ERROR: Hush! Sorry $sql. " 
                         . mysqli_error($conn);
