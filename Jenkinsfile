@@ -22,13 +22,13 @@ pipeline{
 
         stage ('run sql container') {
             steps{  
-                sh "(( docker stop sql_container || true )) && docker run --name sql_container -d -p 6033:3306 --network my_network  -v /data:/var/lib/mysql --rm mysql_image"
+                sh "docker run --name sql_container -d -p 3306:3306 --network my_network  -v /data:/var/lib/mysql --rm mysql_image"
             }
         }
 
         stage ('run php container') {
             steps{  
-                sh "(( docker stop php_container || true )) && docker run --name php_container -d -p 80:80 --network my_network --rm php_image"
+                sh "docker run --name php_container -d -p 80:80 --network my_network --rm php_image"
             }
         }
         }
