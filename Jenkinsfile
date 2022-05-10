@@ -4,16 +4,16 @@ pipeline{
     stages{
         stage ('build sql image') {
             steps{
-                sh "docker rm -f sql_container"
-                sh "docker rmi mysql_image"
+                sh "docker rm -f sql_container || true"
+                sh "docker rmi mysql_image || true"
                 sh "docker build -t mysql_image ./my_webapp_mysql"
             }
         }
 
         stage ('build php image') {
             steps{
-                sh "docker rm -f php_container"
-                sh "docker rmi php_image"
+                sh "docker rm -f php_container || true"
+                sh "docker rmi php_image || true"
                 sh "docker build -t php_image --no-cache ./my_webapp"
             }
         }
