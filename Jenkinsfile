@@ -4,12 +4,16 @@ pipeline{
     stages{
         stage ('build sql image') {
             steps{
+                sh "docker rm -f sql_container"
+                sh "docker rmi mysql_image"
                 sh "docker build -t mysql_image ./my_webapp_mysql"
             }
         }
 
         stage ('build php image') {
             steps{
+                sh "docker rm -f php_container"
+                sh "docker rmi php_image"
                 sh "docker build -t php_image --no-cache ./my_webapp"
             }
         }
@@ -22,14 +26,12 @@ pipeline{
 
         stage ('run sql container') {
             steps{ 
-                sh "docker rm -f sql_container" 
                 sh "docker run --name sql_container -d -p 3306:3306 --network my_network  -v /data:/var/lib/mysql --rm mysql_image"
             }
         }
 
         stage ('run php container') {
             steps{ 
-                sh "docker rm -f php_container" 
                 sh "docker run --name php_container -d -p 81:80 --network my_network --rm php_image"
             }
         }
