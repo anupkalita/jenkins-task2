@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 590852515231.dkr.ecr.us-east-1.amazonaws.com
+      - REPOSITORY_URI=590852515231.dkr.ecr.us-east-1.amazonaws.com/ak-php-mysql
+      - AWS_ACCOUNT_ID=590852515231
+      - AWS_DEFAULT_REGION=us-east-1
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      - docker build -t $REPOSITORY_URI:latest ./my_webapp
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $REPOSITORY_URI:latest
