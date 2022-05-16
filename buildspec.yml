@@ -4,7 +4,7 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 590852515231.dkr.ecr.us-east-1.amazonaws.com
+      - aws ecr get-login-password --region us-east-1
       - REPOSITORY_URI=590852515231.dkr.ecr.us-east-1.amazonaws.com/ak-php-mysql
       - AWS_ACCOUNT_ID=590852515231
       - AWS_DEFAULT_REGION=us-east-1
